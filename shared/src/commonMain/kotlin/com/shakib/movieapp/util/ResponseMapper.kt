@@ -10,11 +10,10 @@ suspend inline fun <reified T> mapResponse(
 ): DomainModel<T> {
     try {
         val result = block.invoke()
-        MPLogger.d("mapResponse", "Result - $result")
         response.payload = result.parse()
         response.isSuccess = true
     } catch (e: Exception) {
-        MPLogger.e("mapResponse", "Caught - ${e.message}")
+        MPLogger.e("mapResponse", "Caught - $e")
         response.error = e.parse()
     }
     return response

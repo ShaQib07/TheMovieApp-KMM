@@ -1,5 +1,7 @@
 package com.shakib.movieapp.data.dto
 
+import com.shakib.movieapp.db.MovieDb
+
 @kotlinx.serialization.Serializable
 data class Movie(
     val backdrop_path: String,
@@ -14,7 +16,8 @@ data class Movie(
     val vote_average: Double,
     val vote_count: Int
 ) {
-    constructor() : this("/22z44LPkMyf5nyyXvv8qQLsbom.jpg",
+    constructor() : this(
+        "/22z44LPkMyf5nyyXvv8qQLsbom.jpg",
         631842,
         "en",
         "Knock at the Cabin",
@@ -24,7 +27,24 @@ data class Movie(
         "2023-02-01",
         "Knock at the Cabin",
         6.6,
-        826)
+        826
+    )
 }
 
 fun Movie.getBackdrop() = "https://image.tmdb.org/t/p/w500/$backdrop_path"
+
+fun Movie.getPoster() = "https://image.tmdb.org/t/p/w500/$poster_path"
+
+fun MovieDb.map() = Movie(
+    id = this.id.toInt(),
+    title = this.title,
+    original_title = this.original_title,
+    overview = this.overview,
+    backdrop_path = this.backdrop_path,
+    poster_path = this.poster_path.toString(),
+    original_language = this.original_language.toString(),
+    popularity = this.popularity?.toDouble() ?: 0.0,
+    release_date = this.release_date.toString(),
+    vote_average = this.vote_average?.toDouble() ?: 0.0,
+    vote_count = this.vote_count.toInt()
+)

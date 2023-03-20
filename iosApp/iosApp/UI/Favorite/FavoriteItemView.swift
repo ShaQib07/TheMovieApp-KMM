@@ -1,16 +1,16 @@
 //
-//  ItemView.swift
+//  FavoriteItemView.swift
 //  iosApp
 //
-//  Created by Golam Shakib Khan on 3/3/23.
+//  Created by Golam Shakib Khan on 14/3/23.
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import shared
 import SwiftUI
+import shared
 import Kingfisher
 
-struct PopularItemView: View {
+struct FavoriteItemView: View {
     let movie: Movie
     @EnvironmentObject var viewModel: PopularViewModel
     @State var isFavorite = false
@@ -49,21 +49,19 @@ struct PopularItemView: View {
                     .accentColor(Color.white)
                     .padding(8.0)
             }
-            .background(LinearGradient(gradient: Gradient(colors: [Color("Gradient"), Color.clear]), startPoint: .bottom, endPoint: .center))
+            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.124825187, green: 0.1294132769, blue: 0.1380611062, alpha: 1)), Color.clear]), startPoint: .bottom, endPoint: .center))
             .cornerRadius(8.0)
         }
         .onAppear {
             if viewModel.favoriteList.contains(movie) {
                 isFavorite = true
-            } else {
-                isFavorite = false
             }
         }
     }
 }
 
-struct PopularItem_Previews: PreviewProvider {
+struct FavoriteItem_Previews: PreviewProvider {
     static var previews: some View {
-        PopularItemView(movie: Movie())
+        FavoriteItemView(movie: Movie())
     }
 }

@@ -1,6 +1,7 @@
 package com.shakib.movieapp.di
 
 import com.shakib.movieapp.data.ApiService
+import com.shakib.movieapp.data.DBHelper
 import com.shakib.movieapp.data.Repository
 import com.shakib.movieapp.domain.UseCase
 import com.shakib.movieapp.platform.HttpClientLogger
@@ -48,10 +49,11 @@ object Modules {
 
     val services = module {
         single { ApiService(get()) }
+        single { DBHelper(get()) }
     }
 
     val repositories = module {
-        factory { Repository(get()) }
+        factory { Repository(get(), get()) }
     }
 
     val useCases = module {

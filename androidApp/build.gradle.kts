@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -40,6 +42,8 @@ dependencies {
     implementation("androidx.compose.material:material:1.3.1")
     implementation("androidx.activity:activity-compose:1.6.1")
 
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+
     implementation("io.insert-koin:koin-android:3.3.3")
     implementation("io.insert-koin:koin-androidx-compose:3.4.2")
 
@@ -48,4 +52,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     implementation("androidx.paging:paging-compose:1.0.0-alpha18")
+
+    implementation ("io.github.raamcosta.compose-destinations:animations-core:1.7.36-beta")
+    ksp ("io.github.raamcosta.compose-destinations:ksp:1.7.36-beta")
 }

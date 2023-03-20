@@ -10,9 +10,10 @@ struct PopularView: View {
                 LazyVStack {
                     ForEach(viewModel.movieList, id: \.id) { movie in
                         NavigationLink(
-                            destination: EmptyView(),
+                            destination: MovieDetailView(movie: movie),
                             label: {
                                 PopularItemView(movie: movie)
+                                    .environmentObject(viewModel)
                                     .padding(EdgeInsets(top: 0.0, leading: 10.0, bottom: 4.0, trailing: 10.0))
                             })
                     }
@@ -27,14 +28,19 @@ struct PopularView: View {
                     }
                 }
             }
+            .onAppear {
+                viewModel.fetchFavoriteMovies()
+            }
             .navigationBarTitle("Popular")
-            //      .navigationBarItems(
-            //        trailing:
-            //          NavigationLink(destination: FavoriteView(), label: {
-            //            Image(systemName: "star.fill")
-            //          })
-            //      )
+                  .navigationBarItems(
+                    trailing:
+                        NavigationLink(destination: FavoriteView().environmentObject(viewModel), label: {
+                        Image(systemName: "star.fill")
+                              .foregroundColor(Color("Yellow"))
+                      })
+                  )
         }
+        .accentColor(Color("BlackWhite"))
     }
 }
 

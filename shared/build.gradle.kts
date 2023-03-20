@@ -1,5 +1,6 @@
 plugins {
     kotlin("plugin.serialization")
+    id("com.squareup.sqldelight")
     id("com.android.library")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
@@ -24,8 +25,11 @@ kotlin {
         val koinVersion = "3.3.3"
         val ktorVersion = "2.2.4"
         val multiPlatformSettingsVersion = "1.0.0"
+        val sqlDelightVersion = "1.5.5"
         val commonMain by getting {
             dependencies {
+                implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.8.10")
+
                 implementation("io.insert-koin:koin-core:$koinVersion")
 
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -34,6 +38,9 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
                 implementation("com.russhwolf:multiplatform-settings:$multiPlatformSettingsVersion")
+
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+
             }
         }
         val commonTest by getting {
@@ -45,6 +52,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+
             }
         }
         val androidUnitTest by getting
@@ -58,6 +67,8 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+
             }
         }
         val iosX64Test by getting
@@ -79,4 +90,11 @@ android {
 
 kotlin.sourceSets.all {
     languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+}
+
+sqldelight {
+    database("MovieDb") {
+        packageName = "com.shakib.movieapp"
+        schemaOutputDirectory = file("src/commonMain/sqldelight/com/shakib/movieapp/db")
+    }
 }

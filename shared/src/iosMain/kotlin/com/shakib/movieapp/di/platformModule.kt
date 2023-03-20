@@ -2,6 +2,9 @@ package com.shakib.movieapp.di
 
 import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.Settings
+import com.shakib.movieapp.MovieDb
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import kotlinx.cinterop.ObjCClass
 import kotlinx.cinterop.getOriginalKotlinClass
 import org.koin.core.Koin
@@ -11,7 +14,11 @@ import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
-actual val platformModule = module { }
+actual val platformModule = module {
+    single<SqlDriver> {
+        NativeSqliteDriver(MovieDb.Schema, "MovieDb")
+    }
+}
 
 object KoinIOS {
     fun initialize(

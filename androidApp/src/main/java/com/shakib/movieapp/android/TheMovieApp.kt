@@ -3,6 +3,7 @@ package com.shakib.movieapp.android
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.shakib.movieapp.android.ui.detail.MovieDetailViewModel
 import com.shakib.movieapp.android.ui.popular.PopularViewModel
 import com.shakib.movieapp.di.initKoin
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,9 +19,8 @@ class TheMovieApp: Application() {
     }
 
     private val viewModelModule = module {
-        viewModel {
-            PopularViewModel(get())
-        }
+        viewModel { PopularViewModel(get()) }
+        viewModel { MovieDetailViewModel(get()) }
     }
 
     override fun onCreate() {

@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">The Movie App</string>
     <string name="popular">Popular</string>
+    <string name="favorite">Favorite</string>
 </resources>

@@ -10,9 +10,10 @@ import shared
 import KMPNativeCoroutinesAsync
 
 class PopularViewModel : ObservableObject {
-    let usecae: UseCase = Koin.instance.get()
+    let useCase: UseCase = Koin.instance.get()
     
     @Published var movieList = [Movie]()
+    @Published var favoriteList = [Movie]()
     @Published var hasMore = true
     
     private var page = 1
@@ -25,11 +26,9 @@ class PopularViewModel : ObservableObject {
     }
     
     func fetchPopularMovies() async {
-        MPLogger().d(tag: "fetchPopularMovies", message: "Called with page \(page)")
         do {
-            let stream = asyncSequence(for: self.usecae.getPopularMovies(page: Int32(page)))
+            let stream = asyncSequence(for: self.useCase.getPopularMovies(page: Int32(page)))
             for try await data in stream {
-                print("fetchPopularMovies | data from page \(page) - count \(String(describing: data.payload?.results.count))")
                 if let movieList = data.payload?.results {
                     updateMovieList(movieList: movieList)
                 } else {
@@ -40,6 +39,22 @@ class PopularViewModel : ObservableObject {
             }
         } catch {
             MPLogger().e(tag: "fetchPopularMovies", message: String(describing: error.localizedDescription))
+        }
+    }
+    
+    func fetchFavoriteMovies() {
+        favoriteList = self.useCase.getFavoriteMovies()
+    }
+    
+    func addToFavorite(movie: Movie) {
+        self.useCase.addToFavorites(movie: movie)
+        favoriteList.append(movie)
+    }
+    
+    func removeFromFavorite(movie: Movie) {
+        self.useCase.removeFromFavorites(movie: movie)
+        if let index = favoriteList.firstIndex(of: movie) {
+            favoriteList.remove(at: index)
         }
     }
 }

@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization").version("1.8.10").apply(false)
     id("com.google.devtools.ksp").version("1.8.10-1.0.9").apply(false)
     id("com.rickclephas.kmp.nativecoroutines").version("1.0.0-ALPHA-5").apply(false)
+    id("com.squareup.sqldelight").version("1.5.5").apply(false)
     kotlin("android").version("1.8.10").apply(false)
     kotlin("multiplatform").version("1.8.10").apply(false)
 }
