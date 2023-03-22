@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.shakib.movieapp.android.MyApplicationTheme
@@ -37,6 +38,11 @@ fun MovieDetailView(
     movie: MovieUI,
     viewModel: MovieDetailViewModel = getViewModel()
 ) {
+    rememberSystemUiController().setSystemBarsColor(
+        color = Color.Transparent,
+        darkIcons = true
+    )
+
     LaunchedEffect(Unit) { viewModel.getRecommendations(movie.id) }
 
     Scaffold {
@@ -55,7 +61,8 @@ fun MovieDetailView(
                     modifier = Modifier.fillMaxSize()
                 )
 
-                Box(modifier = Modifier
+                Box(
+                    modifier = Modifier
                         .fillMaxSize()
                         .background(
                             brush = Brush.verticalGradient(

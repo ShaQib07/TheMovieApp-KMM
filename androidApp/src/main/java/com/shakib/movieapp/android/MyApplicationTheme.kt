@@ -10,7 +10,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MyApplicationTheme(
@@ -34,11 +33,6 @@ fun MyApplicationTheme(
             onSurface = Color(0xFF000000)
         )
     }
-    val systemUiController = rememberSystemUiController()
-    systemUiController.setSystemBarsColor(
-        color = Color.Transparent,
-        darkIcons = true
-    )
     val typography = Typography(
         body1 = TextStyle(
             fontFamily = FontFamily.Default,
