@@ -45,8 +45,12 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test"))
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
                 implementation("io.insert-koin:koin-test:$koinVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+                implementation("io.mockk:mockk:1.13.4")
+                implementation("io.mockk:mockk-common:1.12.5")
             }
         }
         val androidMain by getting {

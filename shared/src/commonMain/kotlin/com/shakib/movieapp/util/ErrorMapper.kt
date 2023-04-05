@@ -10,7 +10,7 @@ fun Exception.parse(): Exception {
     return if (this is NetworkException)
         this
     else
-        UnknownException("An unknown exception occurred \n Check your network connectivity or contact with responsible person.")
+        UnknownException("An unknown exception occurred \nCheck your network connectivity or contact with responsible person.")
 }
 
 suspend inline fun <reified T : Any> HttpResponse.parse(): T {
